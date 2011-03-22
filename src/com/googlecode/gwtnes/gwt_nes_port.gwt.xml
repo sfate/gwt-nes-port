@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='gwt_nes_port'>
+  <inherits name='com.google.gwt.user.User'/>
+  <inherits name='com.google.gwt.user.theme.standard.Standard'/>
+
+  <!-- Specify the entry point -->
+  <entry-point class='com.googlecode.gwtnes.client.NESEntryPoint'/>
+
+  <!-- Specify the paths for translatable code -->
+  <source path='client'/>
+  
+  <!-- Compile for user agent Safari only -->
+  <set-property name='user.agent' value='safari'/>
+
+  <!-- Path to JRE emulated classes (java.io) not provided in GWT core -->
+  <super-source path='jre'/>
+
+</module>
