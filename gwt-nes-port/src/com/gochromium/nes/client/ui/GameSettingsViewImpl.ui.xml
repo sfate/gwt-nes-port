@@ -1,0 +1,48 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.container { font-family:arial; padding:10px 25px; }
+		.titlePanel { margin-bottom:15px;	padding-bottom:5px;font-size:20px;color: #53637D;border-bottom: 1px solid #CBCBCB; font-size: 26px;font-family:Arial; }
+		.container table th { text-align:left; }
+	</ui:style>
+	<g:HTMLPanel styleName="{style.container}">
+		<div class="{style.titlePanel}">Settings</div>
+		
+		<img src="controller.png" style="-webkit-box-shadow: 0px 5px 10px #505050;border:1px solid #777;" />
+		<table style="padding-top:20px;">
+			<tr>
+				<th style="width:100px;">Up &uarr;</th>
+				<td><input type='text' disabled='true' value="Up Arrow" /></td>
+			</tr>
+			<tr>
+				<th>Down &darr;</th>
+				<td><input type='text' disabled='true' value="Down Arrow"  /></td>
+			</tr>
+			<tr>
+				<th>Left &larr;</th>
+				<td><input type='text' disabled='true' value="Left Arrow"  /></td>
+			</tr>
+			<tr>
+				<th>Right &rarr;</th>
+				<td><input type='text' disabled='true' value="Right Arrow"  /></td>
+			</tr>
+			<tr>
+				<th>Select</th>
+				<td><input type='text' disabled='true' value="Ctrl"  /></td>
+			</tr>
+			<tr>
+				<th>Start</th>
+				<td><input type='text' disabled='true' value="Enter"  /></td>
+			</tr>
+			<tr>
+				<th>B</th>
+				<td><input type='text' disabled='true' value="Z"  /></td>
+			</tr>
+			<tr>
+				<th>A</th>
+				<td><input type='text' disabled='true' value="X"  /></td>
+			</tr>
+		</table>
+	</g:HTMLPanel>
+</ui:UiBinder> 

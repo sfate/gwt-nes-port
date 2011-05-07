@@ -1,0 +1,39 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.container { font-family:arial; padding:10px 25px; }
+		.importPanel { padding:10px; }
+		.titlePanel { margin-bottom:15px;	padding-bottom:5px;font-size:20px;color: #53637D;border-bottom: 1px solid #CBCBCB; font-size: 26px;font-family:Arial; }
+		.dragFilePanel { color:#999; font-size:18px; border: 2px dashed #999; text-align: center; padding:75px; border-radius:5px; }
+
+	</ui:style>
+	<g:HTMLPanel styleName="{style.container}">
+		<div class="{style.titlePanel}">Import Game</div>
+		<!--
+		<p><b>Disclaimer: </b>this application allows you to play Nintendo Entertainment System 
+		(NES) games online using an HTML5 / JavaScript emulator. Despite some Nintendo 
+		games being approximately 20 to 30 years old their copyright may 
+		still be protected by the software companies involved with their 
+		production, or by Nintendo themselves. Therefore, you should only play 
+		Nintendo games that you legally own the original cartridge for as otherwise 
+		you may be breaking the law in your country. Please, always respect copyright.</p>
+
+		<p>The author of this application accepts no liability from, and 
+		accepts no responsibility for your use of this Nintendo emulator 
+		or from you playing Nintendo games that you are not legally 
+		entitled to play.</p>
+
+		<p>The purpose of this application is to enable genuine fans who 
+		bought these original games to continue to enjoy playing them by 
+		providing the capability to do so online in a future-proof format.</p>
+		-->
+		<g:FileUpload ui:field="fileUpload"></g:FileUpload>
+	
+		<div style="color:#444;padding-top:15px;padding-bottom:10px;">You can also import a game by dragging and dropping in the box below:</div>
+		<g:FlowPanel ui:field="fileDragUpload" styleName="{style.dragFilePanel}">
+			<g:Label>Drag and Drop File Here</g:Label>
+		</g:FlowPanel>
+
+	</g:HTMLPanel>
+</ui:UiBinder> 

@@ -1,0 +1,21 @@
+package com.gochromium.nes.client.ui;
+
+import java.util.List;
+
+import com.gochromium.nes.client.model.Game;
+import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.IsWidget;
+
+public interface GameListView extends IsWidget {
+	
+	void setPresenter(Presenter listener);
+	void renderGameList(List<Game> gameList);
+	void loadGameCartridge(byte[] game);
+	
+	public interface Presenter {
+		void goTo(Place place);
+		void onGameClicked(String gameId);
+	}
+
+}

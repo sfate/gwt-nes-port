@@ -1,0 +1,179 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+
+		.list {
+			font-family:'Droid Sans', arial, serif;
+		}
+	
+		@external tile, title;
+		.tile {
+			float:left;
+			width:135px;
+			height:155px;
+			border:1px solid transparent;
+			margin:10px;
+			padding:10px;
+			padding-bottom:15px;
+			text-align:center;
+			border-radius:6px;
+			position:relative;
+			cursor:pointer;
+			-webkit-transition: background 2s ease-out;
+			-moz-transition: background 2s ease-out;
+			-o-transition: background 2s ease-out;
+		}
+		.tile .title { 
+			color: #000;
+			position:absolute;
+			bottom:0px;
+			left:0px;
+			right:0px;
+			height:20px;
+			font-size:13px;
+			vertical-alignment:middle;
+			padding:0px 8px 2px 8px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space:nowrap;
+		}
+		.tile:hover {
+			background:rgb(229,229,229);
+			border:1px solid rgb(203,203,203);
+		}
+		.tile img {
+			border: 1px solid transparent;
+			max-width:100px;
+			max-height:135px;
+		}
+		.tile:hover img {
+			border: 1px solid rgb(203,203,203);
+		}
+		.tile:hover .title {
+			color:#000;
+		}
+		
+		@external gameHidden, gameVisible, shutdown, zoomIn, zoomOut;
+		.gameHidden {
+			position:fixed;
+			left:0px;
+			top:0px;
+			right:0px;
+			bottom:0px;
+			background:rgba(0,0,0,.95);
+			opacity:0;
+			-webkit-transition: opacity .5s ease-out;
+			-moz-transition: opacity .5s ease-out;
+			-o-transition: opacity .5s ease-out;
+			visibility:hidden;
+		}
+		.gameVisible {
+			position:fixed;
+			left:0px;
+			top:0px;
+			right:0px;
+			bottom:0px;
+			background:rgba(0,0,0,.95);
+			visibility:visible;
+			opacity:1;
+		}
+
+		.shutdown {
+			background-color:transparent;
+			border:1px solid transparent;
+			border-radius:10px;
+			font-family:'Droid Sans', arial, serif !IMPORTANT;
+			height:30px;
+			line-height:30px;
+			font-size:18px;
+			font-family:'Droid Sans';
+			color:#F1F1F1;
+			opacity:0.5;
+			cursor:pointer;
+			padding-left:26px;
+			position:fixed;
+			right:20px;
+			bottom:20px;
+			background-repeat:no-repeat;
+			background-position:0px 2px;
+			-webkit-transition: all .5s ease-in;
+			-moz-transition: all .5s ease-in;
+			-o-transition: all .5s ease-in;
+			background-image: literal("url(data:image/png;base64,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)");
+		}
+
+		
+		.zoomIn {
+			background-color:transparent;
+			border:1px solid transparent;
+			border-radius:10px;
+			font-family:'Droid Sans', arial, serif !IMPORTANT;
+			height:30px;
+			line-height:30px;
+			font-size:18px;
+			color:#F1F1F1;
+			opacity:0.5;
+			cursor:pointer;
+			padding-left:26px;
+			position:fixed;
+			left:20px;
+			bottom:20px;
+			background-repeat:no-repeat;
+			background-position:0px 2px;
+			-webkit-transition: all .5s ease-in;
+			-moz-transition: all .5s ease-in;
+			-o-transition: all .5s ease-in;
+			background-image: literal("url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A%2FwD%2FoL2nkwAAAAlwSFlzAAAN1gAADdYBkG95nAAAAAd0SU1FB9sDEAQKN%2BbPjloAAAXmSURBVEjHrZVtbJVnGcf%2F9%2F08z3l%2Fa3tKCy0yyoAxENgYxThXXUTnNrfFGB06w9sSnR9mFTPi1Ej84IeaEGXJIomLC9vMlkWKCySjMa5baR2gXXlZ2cC6Fujboeel55znnPO83Pd1%2BcGO2hGiH7g%2B3bmTK7%2F7f13%2F67oFbhL79%2B%2FH49seRzCcMg0pEgBiQghfE5eIqFqYmeDVd9yB%2FxXikxf9A%2F04fLgbz%2F7sl61SygekwP0AVgCoA%2BABmAbwD2IcZ%2BbT%2Beyks3rVqv8PcOrUKTS3rgyFQ9Y3pZR7AKwDYNwkt8jMR5i5y6vMfjgxPYUt7e03B%2FT2vo2lbWvj0Ujwp4YUTwshokSk7KqXKdnOFdfTtpSwIqFAUzIebg0GjPhc6hlmftqpFvovnB%2FGgw8%2FtABgAsDBgwcho61mOGT9UArsYeZAteZNjk4Ujo6N53tNUxYDlklEZJZsJ5xKRNbeviz9cHM6dpdpyI3EeN4KpZ5oXrL4%2FRsUxONxlEol%2FOtK9iuRcOAVAA3VmndpeCTz67Hx%2FJu3tdb7d9%2FZesAwxCYAbs3xnznWe%2BHvpik%2F8%2BlVi7%2B7vLXhIcMQFjO%2F6nr6yY8uDtW2bt16HSD37t2Lvwxcilum8RQzN3ieyo6OF7rGxvOvDfX%2BYdJxVcTz1RpmXsXMazRx8utfbMsrRW%2BdvzT12%2BlsaYCZAeCrhhQdiUQCLS0t84DOzk7UpyLrAdxLBJQr7rELI9Pdv9m3vZLP50FEQhMLIkBrBjNzsVhE544ORyk6eXmi8HKl5ue05jgzP%2FruB47YvXv3fA%2Fi8Tgs094EoEFrbZcr7hsP3Le68bH%2BwQ4AVLTdxQCSRARmFkKIzeFEc3VsPCcB1E4Mjg5Vqu77Qcv4PDHu6djcVjekb8tfV%2FDcSycCAJZrYqE0ZUu280%2BlaCcxuolxOB4NPm8acpkmBjEM05A%2FAtBNjG5N%2FMKSRQnL9fQFTQxmbgSQCgZDC1xkEVGcmUEM11Pku76uC4fY%2BHgG5mr8H1cIYX58ZuaglJKYOU9EIIbpK20qpRYA2HGVHY0wmDkWjwZjdsUpAJgAQABkNGylpZRBZmbH9XO%2B0jUhhJACV13XdxOxUN2cAsdxlZ%2FL5xYAfLvqXUklQkoIsag%2BGVn79qmR1wMBc4iZEbDM9Ka1Lc9EwoE2ZqZMtvzSxdGZv5mmlAAy9cmI3dKU3MDM8H19ZWqmXOh7p2%2FeRQBUtmAPO666xsyWachvbNmwbMzz1BHf10dMQ74FwCYiaM1clwwPElG356kj3%2F%2FWZ%2FvaltZvllJu1JpRqfkD0zOlck9Pzzyg69ltfC1nfzBbdt6ds%2BGXo2Fr172blvPgX1%2FQhiEU8XWLAoDesjrAIedDdfLM5ZUBy9zDzFHPV6PX8vabP9h%2Bn67VavMlmpycBIDM1anCn8JB655o2FoG4BeWaYi9P%2B%2F6%2FcB7o9VMtnzCNOQ1IUSRmT8aOfce2jse2WgasgvAFqVJzZadP45ezZ1Lp9MLVoUBAO%2F0vKY%2F96VtWWa2opHAOillPYAvaKK7FjXE%2FNxsdSg3Wz3heOpkui4aXLHyzu1SiF8JITbPuUlp4qPTM%2BWBmFnms2fP3rhNDxzqkwBWLGqI7WxtTn0nEg4slQKCGD6ADIDy3IMaAaQACK11lQjKsowEgCki%2Bt7li6ePDg8PY9%2B%2BffMKAOD4n1%2FkB7%2B2a7ZS80aKtjMJsCGljEuJKIAUMzcycwMRhZQiu1xxzk1kSq%2FkitXz8UhgpZSiCUB7smHJmcLM1cvr169Hf3%2F%2FjT%2FagUN9AkAcwO2hoHl3IhZaFw5ZLVLKEADleWqm6njDxbJ7moguAkg3NyaeamlKPhmwZIII55h5Z%2B%2FxV4cqdulGwCdAIQAJALG5mdEAKgBKAGqdOzporrRrWpqSnc2NiSdMQ0aY%2BY2q43372Ou%2FqwrcgjhwqM8EsOFTS1I%2Frk9GHiFGTyZb3vXicz8p3xLAHCQghNgYjwbbNfFgpeqe7tzRoW8Z4L%2BUhAA4nTs6FAD8G3HDL7POWpjKAAAAAElFTkSuQmCC)");
+		}
+
+		.zoomOut {
+			background-color:transparent;
+			border:1px solid transparent;
+			border-radius:10px;
+			font-family:'Droid Sans', arial, serif !IMPORTANT;
+			height:30px;
+			line-height:30px;
+			font-size:18px;
+			color:#F1F1F1;
+			opacity:0.5;
+			cursor:pointer;
+			padding-left:26px;
+			position:fixed;
+			left:20px;
+			bottom:20px;
+			
+			background-repeat:no-repeat;
+			background-position:0px 2px;
+			-webkit-transition: all .5s ease-in;
+			-moz-transition: all .5s ease-in;
+			-o-transition: all .5s ease-in;
+			background-image: literal("url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A%2FwD%2FoL2nkwAAAAlwSFlzAAAN1gAADdYBkG95nAAAAAd0SU1FB9sDEAQHOi3QjKoAAAVVSURBVEjHrZVbbFRVFIb%2Fvc85c86U4Qy0HTptLRcLLVAoARKQaIuRpEaLxIL6ZCmEe0mokGjCAz74QgIPpibFABEoKipGokEDRbRaUiXWqlBAgRYqnd5oO9PpXM9tL19G7tQ%2B%2BD%2Fuvdb69lpr77UZRlFDQwMKCwsxTs%2FkjDEXZyBBMEOD3TRjRgHGIvbgwu7du1GxsgLe9ByXIktzOcNSAHMYY34ADhH1AvhDEH4koquhwR67oKBgbICGhgaUlZXh9lCkSJKk7QBWAMjk7H47QSAAvQA%2BJ6LacKj%2FZjwWQ3Fx8eMBn3zyKQw1n5U9U%2FCiLPG9jLFZAGDZTiKeMAeShh0BwDVV1tPcrkxFllQAIKIWItpum9HmGx0dKCkpeRiwYcMGHDhwAF29w8tUl%2FQBgCmOIGMgGPulszv4bf9g5HIiaYUBSG5NycrKHD9%2Fam76c770cUUSZzKAy46gyoHezt%2BvX7uJV159%2BX5A4%2FeNmJQ3K2%2BCrn3GOV9i2yLS2R082nat94hlOdcBxACIlI8CINPlkhfNmeFfOzU3%2FXlJYi4AJy3LqexsbwsvXbr0DkCeM6cIF7sktny6%2FDqAp4QQdt%2FgyEe%2FXQ7sARCoqSoVD5TVANBdW990%2Bo8%2Fe4KKLKl52d4yAGWMseW6rn9cV7cPW7dWAwD4li3VKJ6Z45c4qxACLJawLtzoCu7btrrk1iOC31FNVWlCCHG%2Bo2voUDRudgsBlYhWQfVpbrd2N4Pq6mq0tN2aBaBACIF4wvw63ZvWc6snNLszMMRGveOMiR9bOi6EI4nzmkteRUTzNVXO9fl8HXcAKcMnBcEDonjSsFsmZXiWOYJqOYP0qMCCUv0jSswtyN48HEm22o5YyRjLEAI5Ho%2FnLuC9o%2Bf44nlT0olIIiJDCBGOJ8zpnjRXlkPg%2F%2FFQDQCqEKLHEWRxRpLtCE3T7ikRAGaYluEIEgBciiKlRWKGlUhaIwAkADTKI40ZpmO4VcVNRLJDMCzbsQzDuA8gonGzz3GcOOfc41aVeb9eCpwN9A2%2F%2FW8JR%2BlByDCdKwuLcpcD4EKIoUjM6L929epdwLbVJXTkREuH36cHxrmVmZLEXppXmP1hS1vXwVQGo8maPzs3X5GlZUIIJA27rTMQ7Dl27NhdgKqq2Hvw7N%2FB4XizqowvZIwt0T3amqcXTtv720%2Bnkhs3bnxk5F27duHZFyvdukfbAqDQtkVyJJo8ORJNjpw7d%2B6OHTdNEwBCgb7hr6Jxs52IZCJ6S1WkzYtKyt379%2B9%2FKHhdXR3KV63X071pb0qcrSMixBJW481AqKHnyjckhLh%2FVHDO8e7hH3x%2Bn75p2hMT31BdSgaAOBGdIKJDAC4KQjTlo3OGBQA2cc7LAbiIiKJxc0%2Frpa5dxw%2FstJqbmx%2BeprX1TQxAvt%2Bnr8%2FzeyvdmpKT2ooAaAfQl7LPBpAPwCMIQghhyhLXAPQ7gjYHe%2F76srX1V%2BzcuRO4t4mnvzyMFyrWDkfjRns0bg4whnGyJHkZZzrAsgmYQcB0QeQXgmTDtG8PhmJn%2BoeiP6dpymTOeRaAxZon4%2BLwYHdnUVERmpubH%2F7RUplMAFCke7QlE3RtvltV8jjnbgBkOyKcSFrXw5HET5GYcR6A5Pfp6%2FL83g2KInmJ6JIQWNN05nhrOBzCY2dNbX2TBMADIANAOgA1NbIjAAYBhGqqSo3a%2BiYOYGZulneb36dXyhJPA9Bo2c5r352sH2QYo1KZoaaqlB6xJwMonpwzYUfmRM8rADpjcaP81Bfvd4wZMIYDKJzzBRO97hUSZ%2B0Dwdjxd3ZUxP43QAriAuAFkAQQrakqpX8AmviDvDw9TcEAAAAASUVORK5CYII%3D)");
+		}
+		
+		.zoomIn:hover,
+		.zoomOut:hover,
+		.shutdown:hover {
+			color:#FFF;
+			opacity:1;
+		}
+		
+		.gamePanel {
+			padding-top:25px;
+			text-align:center;	
+		}
+	</ui:style>
+	<g:FlowPanel>
+	
+		<g:HTMLPanel styleName="{style.list}" ui:field="tiles" />
+	    <g:HTMLPanel styleName="gameHidden" ui:field="gamePopup">
+			
+			<g:FlowPanel ui:field="gamePanel" styleName="{style.gamePanel}"></g:FlowPanel>
+			
+			
+			<g:Button styleName="zoomIn" ui:field="zoomInButton">Zoom In</g:Button>
+			<g:Button styleName="zoomOut" ui:field="zoomOutButton" visible="false">Zoom Out</g:Button>
+			<g:Button styleName="shutdown" ui:field="shutdownButton">Shutdown</g:Button>
+		</g:HTMLPanel>
+	</g:FlowPanel>
+</ui:UiBinder> 

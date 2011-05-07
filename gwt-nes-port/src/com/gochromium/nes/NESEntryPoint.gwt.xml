@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='gwt_nes_port'>
+  <!-- Inherit the core Web Toolkit stuff.  -->
+  <inherits name="com.google.gwt.user.User" />
+  <inherits name="com.google.gwt.activity.Activity"/>
+  <inherits name="com.google.gwt.place.Place"/>
+  <inherits name='com.google.gwt.json.JSON' />
+  
+  <!-- Default Look & Feel -->
+  <inherits name='com.google.gwt.user.theme.standard.Standard'/>
+  
+  <!-- HTML5 Web Database for GWT -->
+  <inherits name="com.google.code.gwt.database.Html5Database" />
+  
+  <!-- cross site scripting linker, required to run as packaged app in chrome -->
+  <add-linker name="xs" />
+
+  <!-- Entry Point -->
+  <entry-point class='com.gochromium.nes.client.ApplicationEntryPoint'/>
+  
+  <!-- Path to Source Code -->
+  <source path='client'/>
+  
+  <!-- Safari / Webkit / HTML5 only -->
+  <set-property name='user.agent' value='safari'/>
+  
+  <!-- JRE Classes not Emulated by GWT -->
+  <super-source path='jre'/>
+</module>
