@@ -61,11 +61,11 @@
 			top:0px;
 			right:0px;
 			bottom:0px;
-			background:rgba(0,0,0,.95);
+			/*background:rgba(0,0,0,.95);*/
 			opacity:0;
-			-webkit-transition: opacity .5s ease-out;
+			/*-webkit-transition: opacity .5s ease-out;
 			-moz-transition: opacity .5s ease-out;
-			-o-transition: opacity .5s ease-out;
+			-o-transition: opacity .5s ease-out;*/
 			visibility:hidden;
 		}
 		.gameVisible {
@@ -74,7 +74,8 @@
 			top:0px;
 			right:0px;
 			bottom:0px;
-			background:rgba(0,0,0,.95);
+			/*background:rgba(0,0,0,.95);*/
+			background:#000;
 			visibility:visible;
 			opacity:1;
 		}

@@ -115,20 +115,42 @@ public final class TVController extends FlowPanel {
         
         
         
-        Event.addNativePreviewHandler(new NativePreviewHandler() 
-        { 
-            @Override 
-            public void onPreviewNativeEvent(NativePreviewEvent event) 
-            { 
-                NativeEvent ne = event.getNativeEvent(); 
-                if (KeyDownEvent.getType().getName().equals(ne.getType())) { 
-                	nes.joyPad1.buttonDown(ne.getKeyCode());
-                } else if(KeyUpEvent.getType().getName().equals(ne.getType())) { 
-                	nes.joyPad1.buttonUp(ne.getKeyCode());
-                }
-            } 
-        }); 
+//        Event.addNativePreviewHandler(new NativePreviewHandler() 
+//        { 
+//            @Override 
+//            public void onPreviewNativeEvent(NativePreviewEvent event) 
+//            { 
+//                NativeEvent ne = event.getNativeEvent(); 
+//                if (KeyDownEvent.getType().getName().equals(ne.getType())) { 
+//                	nes.joyPad1.buttonDown(ne.getKeyCode());
+//                } else if(KeyUpEvent.getType().getName().equals(ne.getType())) { 
+//                	nes.joyPad1.buttonUp(ne.getKeyCode());
+//                }
+//            } 
+//        }); 
+        
+        handleWindowKeyEvents(this);
     }
+
+    private native void handleWindowKeyEvents(final TVController c) /*-{
+		$wnd.onkeydown = function(event) {
+		 //$wnd.alert("keydown event detected!"+event.which);
+		 //nes.joyPad1.buttonDown(event.getNativeKeyCode());
+		 c.@com.gochromium.nes.client.emulator.TVController::onKeyDown(I)(event.which);
+		};
+		$wnd.onkeyup = function(event) {
+		 //$wnd.alert("keyup event detected!"+event.which);
+		 //nes.joyPad1.buttonUp(event.getNativeKeyCode());
+		 c.@com.gochromium.nes.client.emulator.TVController::onKeyUp(I)(event.which);
+		};
+	}-*/;
+	
+	void onKeyUp(int code) {
+		nes.joyPad1.buttonUp(code);
+	}
+	void onKeyDown(int code) {
+		nes.joyPad1.buttonDown(code);
+	}
 
 	public void updatePalette() {
         palette = nes.palette.palette;
@@ -171,11 +193,16 @@ public final class TVController extends FlowPanel {
     		bufferPixelArray.set(p+3, 0xFF);
         }
     }
+    
+//    private boolean enableFramerateThrottle = false;
+//    public void enableFramerateThrottle(boolean enabled) {
+//    	this.enableFramerateThrottle = enabled;
+//    }
 
     public final void drawScreen(boolean force) {
 
         //PAINT HERE!!
-    	boolean sleeping = true;
+    	boolean sleeping = true;//enableFramerateThrottle;
 
     	while (sleeping) {
             sleeping = System.currentTimeMillis() - lastRedraw < 16;

@@ -280,8 +280,8 @@ public final class PPU {
 
         // Calculate the X Offset into the Line
 
-        int p = -loopyX;
-        int solid = -loopyX;
+        int p = -loopyX | 0;
+        int solid = -loopyX | 0;
 
 
         // Draw 33 Tiles on the Current Line
