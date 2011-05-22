@@ -18,6 +18,7 @@ public class GameSettingsViewImpl extends Composite implements GameSettingsView 
 		initWidget(uiBinder.createAndBindUi(this));
 	}
 	
+	@SuppressWarnings("unused")
 	private Presenter listener;
 
 	@Override

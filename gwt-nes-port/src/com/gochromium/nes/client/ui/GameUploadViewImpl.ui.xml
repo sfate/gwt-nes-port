@@ -5,7 +5,50 @@
 		.container { font-family:arial; padding:10px 25px; }
 		.importPanel { padding:10px; }
 		.titlePanel { margin-bottom:15px;	padding-bottom:5px;font-size:20px;color: #53637D;border-bottom: 1px solid #CBCBCB; font-size: 26px;font-family:Arial; }
-		.dragFilePanel { color:#999; font-size:18px; border: 2px dashed #999; text-align: center; padding:75px; border-radius:5px; }
+		
+		.dragFilePanel { 
+			color:#999; 
+			font-size:18px; 
+			border: 2px dashed #CCC; 
+			text-align: center; 
+			padding:75px; 
+			border-radius:5px;
+			text-shadow: white 1px 1px;
+			background-color:#F7F7F7;
+		}
+
+		.messagePanel {
+			padding-top:10px;	
+		}
+		
+		.messagePanel div {
+			padding-bottom:10px;	
+		}
+		
+		.messagePanel span {
+			font-size: 18px;
+			color: #999;
+			text-shadow: 1px 1px white;
+			padding-right: 10px;
+		}
+
+
+		@external uploadError, uploadSuccess;
+		.messagePanel span.uploadSuccess {
+			background: literal("url(data:image/gif;base64,R0lGODlhEAAQAPcAAAAAAACAAGbMM8z/zAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAP8ALAAAAAAQABAAAAhNAP8JHEiwoMGDAwYcNDggQACFCwU2FCDgYcSJFCsuxEjRYkOI/zhWVDjRY4CMIwWe7CjSokqUK1kSFJnR5cyYMhHGtKkzZUSJPH8KDQgAOw==) no-repeat");
+			color: green;
+			font-size: 14px;
+			text-shadow: 1px 1px white;
+			padding-left:20px;
+		}
+		
+		.messagePanel span.uploadError {
+			color: tomato;
+			font-size: 14px;
+			text-shadow: 1px 1px white;
+			padding-left:20px;
+			background: literal("url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAoJJREFUeNqEk8tPU0EUh8/M3N7SguJteEjBGFAkkBBMNCS6aHwEV2yNG5cq4Na/wBUr15rAko26cGViUgMGTTAEjBGFCCii0NJSStPXfc3DM00XUBVP8ruTO3O+M+fMzCFQYxNDfVdxuIO6hqpHlVDTqMm78eWZWn9yAIwqBQ+aOzpH+y7EzJaWdmZQRrgUKp3eFsuLs97u1sYTQuARBkocCoDwecqM2f5LQ8Hu6FlTJBMg9rOgfB9IIADMigBri8JaYt1bmou7UvAYBvmoWUN/hFIjg7HhuqgRDpQX50HsZUA5NighgDAGpC4ELLEFnV1nzGBsmMxNvxhBbEyz7PH13hvtp7vHe6z2Omf5M/ipHRB2GSTCCmvSo3RdEMUiiEIeGptOsrz0+mIRuvByI/ONYpB7nR3dpr2+Bm46Bb7rAEeoVnper2s/7a+5SgmMkIshx2deJg3C8+BI01mhX6i5iWmuEoBSEoF8gXiYtpIC+t/M/5NfujJYKS+E/prDw2eGkCpv28UGTJFg0UcmwAUH3AWUXVBcytzo6xVhOFws5bndGsRs9KkvXB44MgjBh1DgrnC5/KL/6U7Zm0raOV+aAcBH819pv6S972uuco3vtnObAxFzoKnR6jJKDpNCVq7vbwJKoWgd9z/tJuMP338fR97V11j6VXAmNp2sk7XCnmQUBO5UKz2v1zedPWe76E5WewQYSi2k8j9LPp8BQ7QGrfpTBg0QxgVVEndG0G4I8dQxw/mQzcZf/cjcf7aaeoucf6iZ0PTjaL7d23arxwrfbAmb5yghAamUny57q1/3y8+nVpJP0WcX5f3RjVWj1RY+gWqoZihQRVSumrY8CPwWYABcBog1wqberwAAAABJRU5ErkJggg==) no-repeat;");
+		}
 
 	</ui:style>
 	<g:HTMLPanel styleName="{style.container}">
@@ -29,11 +72,14 @@
 		providing the capability to do so online in a future-proof format.</p>
 		-->
 		<g:FileUpload ui:field="fileUpload"></g:FileUpload>
-	
-		<div style="color:#444;padding-top:15px;padding-bottom:10px;">You can also import a game by dragging and dropping in the box below:</div>
+
+		<div style="font-size: 15px;color:#777;padding-top:15px;padding-bottom:10px;text-shadow: white 1px 1px;">
+			You can also import one or multiple games by dragging and dropping your ROM files in the box below:</div>
 		<g:FlowPanel ui:field="fileDragUpload" styleName="{style.dragFilePanel}">
-			<g:Label>Drag and Drop File Here</g:Label>
+			<g:Label>Drag and Drop Files Here</g:Label>
 		</g:FlowPanel>
+
+		<g:FlowPanel ui:field="messagePanel" styleName="{style.messagePanel}" />
 
 	</g:HTMLPanel>
 </ui:UiBinder> 

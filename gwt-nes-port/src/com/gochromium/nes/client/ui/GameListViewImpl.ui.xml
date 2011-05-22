@@ -163,9 +163,30 @@
 			padding-top:25px;
 			text-align:center;	
 		}
+		
+		.gettingStartedPanel {
+			padding: 20px;
+			text-shadow: white 1px 1px;
+			font-size: 15px;
+			color: #777;
+		}
+		
+		.importButton {
+			display:inline;
+			border: 1px solid #CCC;
+			padding: 5px;
+			border-radius: 5px;
+			font-size: 15px;
+			color: #777;
+			background: literal("-webkit-gradient(linear,0% 40%,0% 70%,from(#F9F9F9),to(#E3E3E3))");	
+		}
 	</ui:style>
 	<g:FlowPanel>
-	
+		<g:HTMLPanel styleName="{style.gettingStartedPanel}" ui:field="gettingStartedPanel" visible="false">
+			Welcome to 8-Bit-Hits, a Nintendo (NES) Emulator for your Chrome™ Browser.<br/><br/>
+			To get started, <g:Button ui:field="importButton" styleName="{style.importButton}">Import Games</g:Button> from your computer.
+		</g:HTMLPanel>
+		
 		<g:HTMLPanel styleName="{style.list}" ui:field="tiles" />
 	    <g:HTMLPanel styleName="gameHidden" ui:field="gamePopup">
 			

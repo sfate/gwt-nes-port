@@ -12,6 +12,7 @@ import com.gochromium.nes.client.ui.GameListView;
 import com.google.gwt.activity.shared.AbstractActivity;
 import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AcceptsOneWidget;
 
@@ -66,6 +67,9 @@ public class GameListActivity extends AbstractActivity implements GameListView.P
 			public void onSuccess(List<Game> result) {
 				gameList = result;
 				drawGameList(gameList, place.getSearchText(), place.getGenreText());
+
+				//If no games, display getting started message
+				view.displayGettingStarted(gameList.isEmpty());
 			}
 		});
 	}

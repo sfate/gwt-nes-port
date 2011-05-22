@@ -17,8 +17,8 @@ public class GameUploadActivity extends AbstractActivity implements GameUploadVi
 
 	private static final String NES_EXTENSION = ".nes";
 	private static final String ERROR_LOADING_ROM = "Error Loading ROM";
-	private static final String ERROR_INVALID_ROM = "Error: Please upload a " +
-			"valid, unzipped ROM file with a .nes extension";
+	private static final String ERROR_INVALID_ROM = "Invalid File type. " +
+			"Please upload a valid, unzipped ROM file with a .nes extension";
 	private static final String ERROR_STORING_ROM = "Error Storing ROM";
 	
 	private ClientFactory clientFactory;
@@ -35,6 +35,7 @@ public class GameUploadActivity extends AbstractActivity implements GameUploadVi
 	public void start(AcceptsOneWidget panel, EventBus eventBus) {
 		this.view = clientFactory.getGameUploadView();
 		this.view.setPresenter(this);
+		this.view.clearMessages();
 		panel.setWidget(view.asWidget());
 		this.eventBus = eventBus;
 	}
@@ -46,18 +47,18 @@ public class GameUploadActivity extends AbstractActivity implements GameUploadVi
 
 	@Override
 	public void onLoadFile(String fileName, byte[] contents) {
-		
-		//make sure it is a valid file type
-		if(!assertValidFileName(fileName)) {
-			view.alert(ERROR_INVALID_ROM);
-			return;
-		}
-		
+
 		//create default game
 		Game game = new Game();
 		game.setId(fileName);
 		game.setName(fileName);
 		
+		//make sure it is a valid file type
+		if(!assertValidFileName(fileName)) {
+			view.addFailureMessage(game, ERROR_INVALID_ROM);
+			return;
+		}
+
 		//get game meta data (image, name, tags, etc)
 		MetaData metaData =
 			this.clientFactory.getMetaDataService().findMetaData(fileName);
@@ -80,19 +81,19 @@ public class GameUploadActivity extends AbstractActivity implements GameUploadVi
 
 	@Override
 	public void onLoadError(String message) {
-		view.alert(ERROR_LOADING_ROM);
+		view.addFailureMessage(null, ERROR_LOADING_ROM);
 	}
 	
 	private AsyncCallback<Game> insertGameCallback = new AsyncCallback<Game>(){
 		@Override
 		public void onFailure(Throwable caught) {
-			//TODO: remove reference to Window, push to view
-			Window.alert(ERROR_STORING_ROM + ": " + caught.getMessage());
+			view.addFailureMessage(null, ERROR_STORING_ROM + ": " + caught.getMessage());
 		}
 
 		@Override
 		public void onSuccess(Game result) {
-			goTo(new GameListPlace());
+			//Print message saying game was successfully inserted
+			view.addSuccessMessage(result);
 		}
 	};
 }

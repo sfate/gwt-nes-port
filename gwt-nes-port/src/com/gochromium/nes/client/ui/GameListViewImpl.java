@@ -6,6 +6,7 @@ import java.util.List;
 import com.gochromium.nes.client.emulator.NES;
 import com.gochromium.nes.client.emulator.TVController;
 import com.gochromium.nes.client.model.Game;
+import com.gochromium.nes.client.place.GameUploadPlace;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.EventTarget;
@@ -69,6 +70,9 @@ public class GameListViewImpl extends Composite implements GameListView {
 	@UiField FlowPanel gamePanel;
 	@UiField Button zoomInButton;
 	@UiField Button zoomOutButton;
+	
+	@UiField HTMLPanel gettingStartedPanel;
+	@UiField Button importButton;
 
 	public GameListViewImpl() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -96,6 +100,10 @@ public class GameListViewImpl extends Composite implements GameListView {
 		tiles.getElement().setInnerHTML(sb.toSafeHtml().asString());
 	}
 
+	@UiHandler("importButton")
+	void onImportClick(ClickEvent e) {
+		listener.goTo(new GameUploadPlace());
+	}
 
 	private void onBrowserEvent2(Event event) {
 	    // Get the event target.
@@ -161,5 +169,10 @@ public class GameListViewImpl extends Composite implements GameListView {
 		zoomInButton.setVisible(true);
 		
 		System.gc();
+	}
+
+	@Override
+	public void displayGettingStarted(boolean display) {
+		gettingStartedPanel.setVisible(display);
 	}
 }

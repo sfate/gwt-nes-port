@@ -5,6 +5,7 @@ import com.gochromium.nes.client.html5.FileList;
 import com.gochromium.nes.client.html5.FileReader;
 import com.gochromium.nes.client.html5.ProgressCallback;
 import com.gochromium.nes.client.html5.ProgressEvent;
+import com.gochromium.nes.client.model.Game;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
@@ -16,6 +17,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class GameUploadViewImpl extends Composite implements GameUploadView {
@@ -31,6 +33,7 @@ public class GameUploadViewImpl extends Composite implements GameUploadView {
 	private Presenter listener;
 	@UiField FileUpload fileUpload;
 	@UiField FlowPanel fileDragUpload;
+	@UiField FlowPanel messagePanel;
 	
 	public GameUploadViewImpl() {
 		initWidget(uiBinder.createAndBindUi(this));
@@ -57,17 +60,24 @@ public class GameUploadViewImpl extends Composite implements GameUploadView {
 	@SuppressWarnings("unused")
 	void processFiles(FileList fileList) {
 
-
-		FileReader reader = FileReader.create();
-		File file = fileList.get(0);
 		
-		if(file==null) {
-			return;
+
+		for(int i=0;i<fileList.length();i++) {
+			File file = fileList.get(i);
+			if(file==null)
+				break;
+			
+			processFile(file);
 		}
 		
+
+	}
+	
+	void processFile(File file) {
 		final String fileName = file.getName();
 		final String fileType = file.getType();
 		
+		FileReader reader = FileReader.create();
 		reader.readAsBinaryString(file, new ProgressCallback(){
 
 			@Override
@@ -86,8 +96,6 @@ public class GameUploadViewImpl extends Composite implements GameUploadView {
 			}
 		});
 	}
-	
-	
 
 	
 	static final native String createDragHandlers(Element elem, GameUploadViewImpl view) /*-{
@@ -106,4 +114,51 @@ public class GameUploadViewImpl extends Composite implements GameUploadView {
 	static final native FileList fromEvent(NativeEvent event) /*-{
 		return evt.dataTransfer.files;
 	}-*/;
+
+	@Override
+	public void clearMessages() {
+		messagePanel.clear();
+	}
+
+	@Override
+	public void addSuccessMessage(Game game) {
+		// TODO Auto-generated method stub
+		FlowPanel message = new FlowPanel();
+		InlineLabel gameLabel = new InlineLabel();
+		gameLabel.setText(game.getName());
+		gameLabel.setStyleName("");
+		InlineLabel messageLabel = new InlineLabel();
+		messageLabel.setText("Successfully Imported");
+		messageLabel.setStyleName("uploadSuccess");
+		message.add(gameLabel);
+		message.add(messageLabel);
+
+		if(messagePanel.getWidgetCount()>0)
+			messagePanel.insert(message, 1);
+		else
+			messagePanel.add(message);
+	}
+
+	@Override
+	public void addFailureMessage(Game game, String msg) {
+
+		FlowPanel message = new FlowPanel();
+		
+		if(game!=null) {
+			InlineLabel gameLabel = new InlineLabel();
+			gameLabel.setText(game.getName());
+			gameLabel.setStyleName("");
+			message.add(gameLabel);
+		}
+		
+		InlineLabel messageLabel = new InlineLabel();
+		messageLabel.setText(msg);
+		messageLabel.setStyleName("uploadError");
+		message.add(messageLabel);
+
+		if(messagePanel.getWidgetCount()>0)
+			messagePanel.insert(message, 1);
+		else
+			messagePanel.add(message);
+	}
 }

@@ -4,13 +4,13 @@ import java.util.List;
 
 import com.gochromium.nes.client.model.Game;
 import com.google.gwt.place.shared.Place;
-import com.google.gwt.user.client.ui.HasValue;
 import com.google.gwt.user.client.ui.IsWidget;
 
 public interface GameListView extends IsWidget {
 	
 	void setPresenter(Presenter listener);
 	void renderGameList(List<Game> gameList);
+	void displayGettingStarted(boolean display);
 	void loadGameCartridge(byte[] game);
 	
 	public interface Presenter {
