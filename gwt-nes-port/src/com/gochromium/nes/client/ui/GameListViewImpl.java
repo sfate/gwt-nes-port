@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.gochromium.nes.client.emulator.NES;
 import com.gochromium.nes.client.emulator.TVController;
+import com.gochromium.nes.client.model.Controller;
 import com.gochromium.nes.client.model.Game;
 import com.gochromium.nes.client.place.GameUploadPlace;
 import com.google.gwt.core.client.GWT;
@@ -124,19 +125,39 @@ public class GameListViewImpl extends Composite implements GameListView {
 	    }
 	}
 
+	private Controller controller = null;
 	private TVController gui = null;
 	private NES nes = null;
+	
+	@Override
+	public void loadSettings(Controller controller) {
+		this.controller = controller;
+	}
 	
 	@Override
 	public void loadGameCartridge(byte[] game) {
 
 		System.gc();
 		
+		//create instance of the NES
 		if(nes == null) {
 			nes = new NES();
 			gui = new TVController(nes);
 			nes.init(gui);
 			gamePanel.add(gui);
+		}
+		
+		//set the controls
+		if(controller!=null) {
+			nes.getJoyPad1().setButtons(
+					controller.getUp(), 
+					controller.getDown(), 
+					controller.getLeft(), 
+					controller.getRight(),
+					controller.getB(), 
+					controller.getA(), 
+					controller.getSelect(),
+					controller.getStart());
 		}
 
 		// Load the Cartridge		

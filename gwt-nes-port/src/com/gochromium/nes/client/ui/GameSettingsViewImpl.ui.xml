@@ -24,44 +24,62 @@
 			text-shadow:#FFF 1px 1px; 
 			padding-left:10px;
 		}
+		.button {
+			display:inline;
+			border: 1px solid #CCC;
+			padding: 5px;
+			border-radius: 5px;
+			font-size: 15px;
+			color: #444;
+			cursor:pointer;
+			text-shadow: 1px 1px #FFF;
+			background: literal("-webkit-gradient(linear,0% 40%,0% 70%,from(#F9F9F9),to(#E3E3E3))");	
+		}
 	</ui:style>
 	<g:HTMLPanel styleName="{style.container}">
-		<div class="{style.titlePanel}">Settings<span>version 1.1.4</span></div>
+		<div class="{style.titlePanel}">Settings<span>version 1.1.5</span></div>
 		
 		<img src="controller.png" style="-webkit-box-shadow: 0px 5px 10px #505050;border:1px solid #777;" />
 		<table style="padding-top:20px;">
 			<tr>
 				<th style="width:100px;">Up &uarr;</th>
-				<td><input type='text' disabled='true' value="Up Arrow" /></td>
+				<td><g:TextBox ui:field="upTextBox" enabled="false" styleName="" /></td>
 			</tr>
 			<tr>
 				<th>Down &darr;</th>
-				<td><input type='text' disabled='true' value="Down Arrow"  /></td>
+				<td><g:TextBox ui:field="downTextBox" enabled="false" styleName="" /></td>
 			</tr>
 			<tr>
 				<th>Left &larr;</th>
-				<td><input type='text' disabled='true' value="Left Arrow"  /></td>
+				<td><g:TextBox ui:field="leftTextBox" enabled="false" styleName="" /></td>
 			</tr>
 			<tr>
 				<th>Right &rarr;</th>
-				<td><input type='text' disabled='true' value="Right Arrow"  /></td>
+				<td><g:TextBox ui:field="rightTextBox" enabled="false" styleName="" /></td>
 			</tr>
 			<tr>
 				<th>Select</th>
-				<td><input type='text' disabled='true' value="Ctrl"  /></td>
+				<td><g:TextBox ui:field="selectTextBox" enabled="false" styleName="" /></td>
 			</tr>
 			<tr>
 				<th>Start</th>
-				<td><input type='text' disabled='true' value="Enter"  /></td>
+				<td><g:TextBox ui:field="startTextBox" enabled="false" styleName="" /></td>
 			</tr>
 			<tr>
 				<th>B</th>
-				<td><input type='text' disabled='true' value="Z"  /></td>
+				<td><g:TextBox ui:field="bTextBox" enabled="false" styleName="" /></td>
 			</tr>
 			<tr>
 				<th>A</th>
-				<td><input type='text' disabled='true' value="X"  /></td>
+				<td><g:TextBox ui:field="aTextBox" enabled="false" styleName="" /></td>
+			</tr>
+			<tr>
+				<td style="padding-top:5px;" align="right" colspan="2">
+					<g:Button ui:field="editButton" styleName="{style.button}">Edit Controls</g:Button>
+					<g:Button ui:field="saveButton" styleName="{style.button}" visible="false">Save Controls</g:Button>
+				</td>
 			</tr>
 		</table>
+
 	</g:HTMLPanel>
 </ui:UiBinder> 

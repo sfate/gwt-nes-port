@@ -25,7 +25,8 @@ public class GameDaoLocalStorageImpl implements GameDao {
 			
 			for(int i=0;i<length;i++){
 				String key = LocalStorage.key(i);
-				games.add(getGame(key));
+				if(!key.startsWith("SETTINGS_"))
+					games.add(getGame(key));
 			}
 		
 			Collections.sort(games, new Comparator<Game>(){

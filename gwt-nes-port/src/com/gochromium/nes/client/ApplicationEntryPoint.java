@@ -9,6 +9,7 @@ import com.google.gwt.event.shared.EventBus;
 import com.google.gwt.place.shared.Place;
 import com.google.gwt.place.shared.PlaceController;
 import com.google.gwt.place.shared.PlaceHistoryHandler;
+import com.google.gwt.user.client.Window;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -19,6 +20,8 @@ public class ApplicationEntryPoint implements EntryPoint {
 	private Place defaultPlace = new GameListPlace();
 	
 	public void onModuleLoad() {
+		
+		
 		ClientFactory clientFactory = new ClientFactoryImpl();// GWT.create(ClientFactory.class);
 		EventBus eventBus = clientFactory.getEventBus();
 		PlaceController placeController = clientFactory.getPlaceController();

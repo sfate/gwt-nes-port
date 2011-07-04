@@ -3,6 +3,8 @@ package com.gochromium.nes.client;
 import com.gochromium.nes.client.dao.GameDao;
 import com.gochromium.nes.client.dao.GameDaoLocalStorageImpl;
 import com.gochromium.nes.client.dao.GameDaoWebDatabaseImpl;
+import com.gochromium.nes.client.dao.SettingsDao;
+import com.gochromium.nes.client.dao.SettingsDaoImpl;
 import com.gochromium.nes.client.service.MetaDataService;
 import com.gochromium.nes.client.service.MetaDataServiceImpl;
 import com.gochromium.nes.client.ui.ApplicationView;
@@ -30,6 +32,7 @@ public class ClientFactoryImpl implements ClientFactory
 	private static final GameUploadView gameUploadView = new GameUploadViewImpl();
 	private static final GameSettingsView gameSettingsView = new GameSettingsViewImpl();
 	private static GameDao gameDao;
+	private static SettingsDao settingsDao = new SettingsDaoImpl();
 	
 	
 	static {
@@ -78,6 +81,11 @@ public class ClientFactoryImpl implements ClientFactory
 	@Override
 	public GameSettingsView getGameSettingsView() {
 		return gameSettingsView;
+	}
+
+	@Override
+	public SettingsDao getSettingsDao() {
+		return settingsDao;
 	}
 
 }

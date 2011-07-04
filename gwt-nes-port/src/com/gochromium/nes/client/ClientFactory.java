@@ -1,6 +1,7 @@
 package com.gochromium.nes.client;
 
 import com.gochromium.nes.client.dao.GameDao;
+import com.gochromium.nes.client.dao.SettingsDao;
 import com.gochromium.nes.client.service.MetaDataService;
 import com.gochromium.nes.client.ui.ApplicationView;
 import com.gochromium.nes.client.ui.GameListView;
@@ -15,6 +16,7 @@ public interface ClientFactory {
 	PlaceController getPlaceController();
 
 	GameDao getGameDao();
+	SettingsDao getSettingsDao();
 	MetaDataService getMetaDataService();
 	
 	GameListView getGameListView();

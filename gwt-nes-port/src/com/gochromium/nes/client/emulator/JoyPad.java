@@ -32,97 +32,97 @@ public final class JoyPad {
      * Button A on the JoyPad 1.
      *
      */
-    protected static final int BUTTON1_A = 90;//'X';
+    protected int BUTTON1_A = 88;//'X';
     /**
      *
      * Button B on the JoyPad 1.
      *
      */
-    protected static final int BUTTON1_B = 88;//'Z';
+    protected int BUTTON1_B = 90;//'Z';
     /**
      *
      * The START button on the JoyPad 1.
      *
      */
-    protected static final int BUTTON1_START = 13;//'\n';
+    protected int BUTTON1_START = 13;//'\n';
     /**
      *
      * The SELECT button on the JoyPad 1.
      *
      */
-    protected static final int BUTTON1_SELECT = 17;//0x20;
+    protected int BUTTON1_SELECT = 17;//0x20;
     /**
      *
      * The UP button on the JoyPad 1.
      *
      */
-    protected static final int BUTTON1_UP = 38;
+    protected int BUTTON1_UP = 38;
     /**
      *
      * The DOWN button on the JoyPad 1.
      *
      */
-    protected static final int BUTTON1_DOWN = 40;
+    protected int BUTTON1_DOWN = 40;
     /**
      *
      * The LEFT button on the JoyPad1 .
      *
      */
-    protected static final int BUTTON1_LEFT = 37;
+    protected int BUTTON1_LEFT = 37;
     /**
      *
      * The RIGHT button on the JoyPad 1.
      *
      */
-    protected static final int BUTTON1_RIGHT = 39;
+    protected int BUTTON1_RIGHT = 39;
     /**
      *
      * Button A on the JoyPad 2.
      *
      */
-    protected static final int BUTTON2_A = 'T';
+    protected int BUTTON2_A = 'T';
     /**
      *
      * Button B on the JoyPad 2.
      *
      */
-    protected static final int BUTTON2_B = 'R';
+    protected int BUTTON2_B = 'R';
     /**
      *
      * The START button on the JoyPad 2.
      *
      */
-    protected static final int BUTTON2_START = 'E';
+    protected int BUTTON2_START = 'E';
     /**
      *
      * The SELECT button on the JoyPad 2.
      *
      */
-    protected static final int BUTTON2_SELECT = 'Q';
+    protected int BUTTON2_SELECT = 'Q';
     /**
      *
      * The UP button on the JoyPad 2.
      *
      */
-    protected static final int BUTTON2_UP = 'W';
+    protected int BUTTON2_UP = 'W';
     /**
      *
      * The DOWN button on the JoyPad 2.
      *
      */
-    protected static final int BUTTON2_DOWN = 'S';
+    protected int BUTTON2_DOWN = 'S';
     /**
      *
      * The LEFT button on the JoyPad2.
      *
      */
-    protected static final int BUTTON2_LEFT = 'A';
+    protected int BUTTON2_LEFT = 'A';
     /**
      *
      * The RIGHT button on the JoyPad 2.
      *
      */
-    protected static final int BUTTON2_RIGHT = 'D';
+    protected int BUTTON2_RIGHT = 'D';
     /**
      *
      * JoyPad One.
@@ -162,122 +162,22 @@ public final class JoyPad {
      */
     public final void buttonDown(int button) {
 
-//        if (joyPadNumber == JOYPAD_1) {
-
-            switch (button) {
-
-                case BUTTON1_A: // Button A is Down (X)
-
-                    joypad |= 0x1;
-                    return;
-
-                case BUTTON1_B: // Button B is Down (Z)
-
-                    joypad |= 0x2;
-                    return;
-
-
-                case BUTTON1_SELECT: // Select is Down
-
-                    joypad |= 0x4;
-                    return;
-
-
-                case BUTTON1_START: // Start is Down
-
-                    joypad |= 0x8;
-                    return;
-
-
-                case BUTTON1_UP: // Up
-
-                    joypad |= 0x10;
-                    return;
-
-
-                case BUTTON1_DOWN: // Down
-
-                    joypad |= 0x20;
-                    return;
-
-
-                case BUTTON1_LEFT: // Left
-
-                    joypad |= 0x40;
-                    return;
-
-
-                case BUTTON1_RIGHT: // Right
-
-                    joypad |= 0x80;
-                    return;
-
-                default:
-
-                    return;
-
-            }
-
-
-//        } 
-//        else if (joyPadNumber == JOYPAD_2) {
-//
-//            switch (button) {
-//
-//                case BUTTON2_A: // Button A is Down
-//
-//                    joypad |= 0x1;
-//                    return;
-//
-//                case BUTTON2_B: // Button B is Down
-//
-//                    joypad |= 0x2;
-//                    return;
-//
-//
-//                case BUTTON2_SELECT: // Select is Down
-//
-//                    joypad |= 0x4;
-//                    return;
-//
-//
-//                case BUTTON2_START: // Start is Down
-//
-//                    joypad |= 0x8;
-//                    return;
-//
-//
-//                case BUTTON2_UP: // Up
-//
-//                    joypad |= 0x10;
-//                    return;
-//
-//
-//                case BUTTON2_DOWN: // Down
-//
-//                    joypad |= 0x20;
-//                    return;
-//
-//
-//                case BUTTON2_LEFT: // Left
-//
-//                    joypad |= 0x40;
-//                    return;
-//
-//
-//                case BUTTON2_RIGHT: // Right
-//
-//                    joypad |= 0x80;
-//                    return;
-//
-//                default:
-//
-//                    return;
-//
-//            }
-//
-//
-//        }
+            if(button==BUTTON1_A) // Button A is Down (X)
+            	joypad |= 0x1;
+            else if(button==BUTTON1_B) // Button B is Down (Z)
+            	joypad |= 0x2;
+            else if(button==BUTTON1_SELECT) // Select is Down
+            	joypad |= 0x4;
+            else if(button==BUTTON1_START) // Start is Down
+            	joypad |= 0x8;
+            else if(button==BUTTON1_UP) // Up
+            	joypad |= 0x10;
+            else if(button==BUTTON1_DOWN) // Down
+            	joypad |= 0x20;
+            else if(button==BUTTON1_LEFT) // Left
+            	joypad |= 0x40;
+            else if(button==BUTTON1_RIGHT) // Right
+            	joypad |= 0x80;
 
     }
 
@@ -291,118 +191,23 @@ public final class JoyPad {
      */
     public final void buttonUp(int button) {
 
+    	if(button==BUTTON1_A) // Button A is Up (X)
+    		joypad &= 0xFE;
+    	else if(button==BUTTON1_B) // Button B is Up (Z)
+    		joypad &= 0xFD;
+    	else if(button==BUTTON1_SELECT) // Select is Up
+    		joypad &= 0xFB;
+    	else if(button==BUTTON1_START) // Start is Up
+    		joypad &= 0xF7;
+    	else if(button==BUTTON1_UP) // Up
+    		joypad &= 0xEF;
+    	else if(button==BUTTON1_DOWN) // Down
+            joypad &= 0xDF;
+    	else if(button==BUTTON1_LEFT) // Left
+    		joypad &= 0xBF;
+    	else if(button==BUTTON1_RIGHT) // Right
+    		joypad &= 0x7F;
 
-//        if (joyPadNumber == JOYPAD_1) {
-
-            switch (button) {
-
-                case BUTTON1_A: // Button A is Up (X)
-
-                    joypad &= 0xFE;
-                    return;
-
-
-                case BUTTON1_B: // Button B is Up (Z)
-
-                    joypad &= 0xFD;
-                    return;
-
-
-                case BUTTON1_SELECT: // Select is Up
-
-                    joypad &= 0xFB;
-                    return;
-
-
-                case BUTTON1_START: // Start is Up
-
-                    joypad &= 0xF7;
-                    return;
-
-
-                case BUTTON1_UP: // Up
-
-                    joypad &= 0xEF;
-                    return;
-
-
-                case BUTTON1_DOWN: // Down
-
-                    joypad &= 0xDF;
-                    return;
-
-
-                case BUTTON1_LEFT: // Left
-
-                    joypad &= 0xBF;
-                    return;
-
-                case BUTTON1_RIGHT: // Right
-
-                    joypad &= 0x7F;
-                    return;
-
-                default:
-
-                    return;
-
-            }
-//
-//        } else if (joyPadNumber == JOYPAD_2) {
-//
-//            switch (button) {
-//
-//                case BUTTON2_A: // Button A is Up (X)
-//
-//                    joypad &= 0xFE;
-//                    return;
-//
-//
-//                case BUTTON2_B: // Button B is Up (Z)
-//
-//                    joypad &= 0xFD;
-//                    return;
-//
-//
-//                case BUTTON2_SELECT: // Select is Up
-//
-//                    joypad &= 0xFB;
-//                    return;
-//
-//
-//                case BUTTON2_START: // Start is Up
-//
-//                    joypad &= 0xF7;
-//                    return;
-//
-//
-//                case BUTTON2_UP: // Up
-//
-//                    joypad &= 0xEF;
-//                    return;
-//
-//
-//                case BUTTON2_DOWN: // Down
-//
-//                    joypad &= 0xDF;
-//                    return;
-//
-//
-//                case BUTTON2_LEFT: // Left
-//
-//                    joypad &= 0xBF;
-//                    return;
-//
-//                case BUTTON2_RIGHT: // Right
-//
-//                    joypad &= 0x7F;
-//                    return;
-//
-//                default:
-//
-//                    return;
-//            }
-//        }
     }
 
     /**
@@ -489,4 +294,18 @@ public final class JoyPad {
     public final void setStatus(int value) {
         joypad = value;
     }
+
+	public void setButtons(int up, int down, int left, int right,
+			int b, int a, int select, int start) {
+		
+		this.BUTTON1_A = a;
+		this.BUTTON1_B = b;
+		this.BUTTON1_SELECT = select;
+		this.BUTTON1_START = start;
+		this.BUTTON1_DOWN = down;
+		this.BUTTON1_UP = up;
+		this.BUTTON1_LEFT = left;
+		this.BUTTON1_RIGHT = right;
+	}
+
 }

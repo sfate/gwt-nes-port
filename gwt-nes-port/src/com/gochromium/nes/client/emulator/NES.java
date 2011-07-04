@@ -101,5 +101,12 @@ public final class NES {
             return true;
       }
 
+      public JoyPad getJoyPad1() {
+    	  return joyPad1;
+      }
+      
+      public JoyPad getJoyPad2() {
+    	  return joyPad2;
+      }
 }
 

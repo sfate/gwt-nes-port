@@ -25,6 +25,7 @@ public class GameListActivity extends AbstractActivity implements GameListView.P
 	private final GameListPlace place;
 	
 	private List<Game> gameList = null;
+	
 
 	public GameListActivity(GameListPlace place, ClientFactory clientFactory) {
 		this.clientFactory = clientFactory;
@@ -113,6 +114,14 @@ public class GameListActivity extends AbstractActivity implements GameListView.P
 
 			@Override
 			public void onSuccess(byte[] result) {
+				
+				//load the settings
+				try {
+					view.loadSettings(clientFactory.getSettingsDao().getController1());
+				} catch(Exception ex) {
+					ex.printStackTrace();
+				}
+				
 				view.loadGameCartridge(result);
 			}
 		});
