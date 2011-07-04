@@ -273,6 +273,7 @@ public class PPU {
         }
     }
 
+    private int[] lospixels = {0, 0, 0, 0, 0, 0, 0, 0};
     private void drawSprites(final int scanline, final int bgcolor) {
         if (!Utils.getbit(ppuregs[1], 4)) {
             return; //return immediately if sprites are disabled
@@ -346,8 +347,11 @@ public class PPU {
             spriteshiftregH[found] = 0;
         }
 
-        //render like a rock star
-        int[] lospixels = {0, 0, 0, 0, 0, 0, 0, 0};
+        //now, drawing the actual sprites on the buffer
+        for(int i = 0; i < 8; ++i){
+        	lospixels[i] = 0;
+        }
+
         int off;
         int y, i;
         for (int x = 0; x < 256; ++x) {
@@ -474,35 +478,33 @@ public class PPU {
 //        if (PPUDEBUG) {
 //            debugdraw();
 //        }
+    	
         return bitmap;
 
     }
 
 
     //TODO: getTile is slow, needs performance improvement (~70% of execution time!)
+    private int[] tiledata = new int[8];
+    private int[] tilepal = new int[4];
+
     public int[] getTile(final int tileptr, final int bgcolor, final int paletteindex, final int off) {
         //returns an 8 pixel line of tile data fron given PPU ram location
         //with given offset and given palette. (color expressed as NES color number)
-        int[] data = new int[8];
-        
-        final int[] color = {
-            bgcolor,
-            ppuram.pal[paletteindex + 1],
-            ppuram.pal[paletteindex + 2],
-            ppuram.pal[paletteindex + 3]
-        };
-        
+        tilepal[0] = bgcolor;
+        tilepal[1] = ppuram.pal[paletteindex + 1];
+        tilepal[2] = ppuram.pal[paletteindex + 2];
+        tilepal[3] = ppuram.pal[paletteindex + 3];
         // per line of tile ( 1 byte)
         int linelowbits = ppuram.read(off + tileptr);
         int linehighbits = ppuram.read(off + tileptr + 8);
-        
-        for (int j = 0; j < 8; ++j) {
+        for (int j = 7; j >= 0; --j) {
             // per pixel(1 bit)
-            data[7 - j] = color[((linehighbits & 1) << 1) + (linelowbits & 1)];
+            tiledata[j] = tilepal[((linehighbits & 1) << 1) + (linelowbits & 1)];
             linehighbits >>= 1;
             linelowbits >>= 1;
         }
-        return data;
+        return tiledata;
     }
 
     private static int[][] GetNESColors() {
